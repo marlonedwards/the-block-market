@@ -6,6 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import type { AccountPreferences } from "@/types/restaurant";
+import Header from "@/components/Header";
 
 const Profile = () => {
   const [preferences, setPreferences] = useState<AccountPreferences>({
@@ -21,19 +22,7 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-6">
-            <h1 className="text-2xl font-light text-primary">The Block Market</h1>
-            <nav className="hidden md:flex gap-6">
-              <a href="/market" className="text-muted hover:text-primary transition-colors">Market</a>
-              <a href="/trade" className="text-muted hover:text-primary transition-colors">Trade</a>
-              <a href="/orders" className="text-muted hover:text-primary transition-colors">Orders</a>
-              <a href="/profile" className="text-primary transition-colors">Profile</a>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className="container py-12">
         <Card className="max-w-2xl mx-auto p-6">

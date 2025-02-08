@@ -1,9 +1,9 @@
-
 import { useQuery } from "@tanstack/react-query";
-import { Card } from "./ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./ui/card";
 import { Button } from "./ui/button";
 import { Restaurant } from "@/types/restaurant";
 import { useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 const RestaurantList = () => {
   const navigate = useNavigate();
@@ -17,23 +17,54 @@ const RestaurantList = () => {
   });
 
   if (isLoading) {
-    return <div className="text-center">Loading restaurants...</div>;
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="h-6 w-6 animate-spin" />
+      </div>
+    );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {data?.map((restaurant) => (
-        <Card key={restaurant.name} className="p-6">
-          <h3 className="text-xl font-medium mb-2">{restaurant.name}</h3>
-          <p className="text-muted-foreground mb-4 line-clamp-2">{restaurant.shortDescription}</p>
-          <div className="flex gap-2">
-            <Button onClick={() => navigate('/buy', { state: { restaurant: restaurant.name }})}>
-              Buy Blocks
+        <Card 
+          key={restaurant.name} 
+          className="flex flex-col h-full w-full"
+        >
+          <CardHeader>
+            <CardTitle className="text-xl font-medium leading-tight line-clamp-2 mb-2">
+              {restaurant.name}
+            </CardTitle>
+            <CardDescription className="text-sm text-gray-600 line-clamp-3">
+              {restaurant.shortDescription}
+            </CardDescription>
+          </CardHeader>
+          
+          <CardContent className="flex-grow">
+            {/* Spacer for consistent height */}
+          </CardContent>
+
+          <CardFooter className="flex flex-col gap-3 pt-4">
+            <Button 
+              className="w-full" 
+              size="lg"
+              onClick={() => navigate('/buy', { 
+                state: { restaurant: restaurant.name }
+              })}
+            >
+              Buy a Block
             </Button>
-            <Button variant="outline" onClick={() => navigate('/sell', { state: { restaurant: restaurant.name }})}>
-              Sell Blocks
+            <Button 
+              variant="outline" 
+              className="w-full"
+              size="lg"
+              onClick={() => navigate('/sell', { 
+                state: { restaurant: restaurant.name }
+              })}
+            >
+              Sell a Block
             </Button>
-          </div>
+          </CardFooter>
         </Card>
       ))}
     </div>
